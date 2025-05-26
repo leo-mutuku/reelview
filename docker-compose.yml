@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: swaftaPay
+    ports:
+      - "8002:80"
+    restart: unless-stopped
+    # If you need environment variables
+    # environment:
+    #   - NODE_ENV=production
+    #   - API_URL=https://your-api-url
+    
+    # If you need to mount any volumes
+    # volumes:
+    #   - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    
+    # If you need health checks
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:80"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 40s
