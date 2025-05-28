@@ -10,7 +10,7 @@ import SalesPage from './reports/salesPage';
 import Dashboard from "./dashboard/Dashboard"
 import { useReactRouterAdapter } from './reactRouterAdapter';
 import NAVIGATION from './navigation';
-import { FaBolt } from "react-icons/fa6";
+import LiveTvIcon from '@mui/icons-material/LiveTv';
 
 // Theme
 const demoTheme = createTheme({
@@ -57,8 +57,8 @@ function LayoutWrapper() {
       router={router}
       theme={demoTheme}
       branding={{
-        title: 'SwiftaPay',
-        logo: <FaBolt style={{ marginRight: 1 }} />,
+        title: 'ReelView',
+        logo: <LiveTvIcon style={{ marginRight: 1 }} />,
         homeUrl: '/',
       }}
     >
