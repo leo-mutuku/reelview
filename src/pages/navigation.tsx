@@ -1,36 +1,40 @@
 import { type Navigation } from '@toolpad/core/AppProvider';
+import SmartDisplayIcon from '@mui/icons-material/SmartDisplay';
+import LiveTvIcon from '@mui/icons-material/LiveTv';
 import {
-  ShoppingCart as ShoppingCartIcon,
+ 
   BarChart as BarChartIcon,
   Description as DescriptionIcon,
-  Layers as LayersIcon,
+
 } from '@mui/icons-material';
 
 const NAVIGATION: Navigation = [
-  { kind: 'header', title: '' },
+  { kind: 'header', title: 'Movie' },
    {
     segment: 'sales',
-    title: 'Sales',
-    icon: <BarChartIcon />,
+    title: 'Movie',
+    icon: <SmartDisplayIcon />,
     children: [
-      { segment: 'sales', title: 'Sales', icon: <DescriptionIcon /> },
-      { segment: 'traffic', title: 'Traffic', icon: <DescriptionIcon /> },
+      { segment: 'sales', title: 'Popular', icon: <DescriptionIcon /> },
+        { segment: 'traffic', title: 'Now Playing', icon: <DescriptionIcon /> },
+      { segment: 'traffic', title: 'Upcoming', icon: <DescriptionIcon /> },
+      { segment: 'traffic', title: 'Top Rated', icon: <DescriptionIcon /> },
     ],
   },
-  { segment: 'inventory', title: 'Inventory', icon: <ShoppingCartIcon /> },
-  { segment: 'procurement', title: 'Procurement', icon: <ShoppingCartIcon /> },
   { kind: 'divider' },
-  { kind: 'header', title: 'Analytics' },
+  { kind: 'header', title: 'TV' },
   {
-    segment: 'reports',
-    title: 'Reports',
-    icon: <BarChartIcon />,
+    segment: 'TV-Shows',
+    title: 'TV Shows',
+    icon: <LiveTvIcon />,
     children: [
-      { segment: 'sales', title: 'Sales', icon: <DescriptionIcon /> },
-      { segment: 'traffic', title: 'Traffic', icon: <DescriptionIcon /> },
+      { segment: 'sales', title: 'Popular', icon: <DescriptionIcon /> },
+      { segment: 'traffic', title: 'Now Playing', icon: <DescriptionIcon /> },
+      { segment: 'traffic', title: 'Upcoming', icon: <DescriptionIcon /> },
+      { segment: 'traffic', title: 'Top Rated', icon: <DescriptionIcon /> },
     ],
   },
-  { segment: 'integrations', title: 'Integrations', icon: <LayersIcon /> },
+  
 ];
 
 export default NAVIGATION;
