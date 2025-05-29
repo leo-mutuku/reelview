@@ -1,20 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { AuthState, User} from './types';
+import type { AuthState, User } from './types';
 
-// Load initial state from localStorage if available
+// Load initial state from sessionStorage if available
 const loadAuthFromStorage = (): AuthState => {
   try {
-    const token = localStorage.getItem('token');
-    const user = localStorage.getItem('user');
-    const isAuthenticated = localStorage.getItem('isAuthenticated');
-   
+    const token = sessionStorage.getItem('token');
+    const user = sessionStorage.getItem('user');
+    const isAuthenticated = sessionStorage.getItem('isAuthenticated');
     
     if (token && user && isAuthenticated) {
       return {
         user: JSON.parse(user),
         token,
-        isAuthenticated: true,
+        isAuthenticated: JSON.parse(isAuthenticated), // Parse the boolean
       };
     }
   } catch (error) {
@@ -42,29 +41,29 @@ const authSlice = createSlice({
       state.token = action.payload.token;
       state.isAuthenticated = true;
       
-      // Persist to localStorage
-      localStorage.setItem('token', action.payload.token);
-      localStorage.setItem('user', JSON.stringify(action.payload.user));
-      localStorage.setItem('isAuthenticated', JSON.stringify(action.payload));
+      // Persist to sessionStorage
+      sessionStorage.setItem('token', action.payload.token);
+      sessionStorage.setItem('user', JSON.stringify(action.payload.user));
+      sessionStorage.setItem('isAuthenticated', JSON.stringify(true)); // Store boolean, not payload
     },
     logout: (state) => {
       state.user = null;
       state.token = null;
       state.isAuthenticated = false;
       
-      // Clear from localStorage
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      localStorage.removeItem('isAuthenticated');
+      // Clear from sessionStorage
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('user');
+      sessionStorage.removeItem('isAuthenticated');
     },
     clearAuth: (state) => {
       // Same as logout but can be used for token expiration
       state.user = null;
       state.token = null;
       state.isAuthenticated = false;
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      localStorage.removeItem('isAuthenticated')
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('user');
+      sessionStorage.removeItem('isAuthenticated');
     },
   },
 });

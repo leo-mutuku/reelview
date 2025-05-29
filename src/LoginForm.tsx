@@ -6,8 +6,6 @@ import {
   TextField,
   Button,
   Paper,
-  Typography,
-  Box,
   InputAdornment,
   IconButton,
   Alert,
@@ -54,17 +52,17 @@ const LoginForm: React.FC = () => {
       background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
       backgroundAttachment: 'fixed',
       padding: '20px',
-      position: 'relative',
+      position: 'relative' as const,
       overflow: 'hidden'
     },
     backgroundOrbs: {
-      position: 'absolute',
+      position: 'absolute' as const,
       inset: 0,
       overflow: 'hidden',
       zIndex: 1
     },
     orb1: {
-      position: 'absolute',
+      position: 'absolute' as const,
       top: '-160px',
       right: '-160px',
       width: '320px',
@@ -75,7 +73,7 @@ const LoginForm: React.FC = () => {
       animation: 'float 6s ease-in-out infinite'
     },
     orb2: {
-      position: 'absolute',
+      position: 'absolute' as const,
       bottom: '-160px',
       left: '-160px',
       width: '320px',
@@ -86,7 +84,7 @@ const LoginForm: React.FC = () => {
       animation: 'float 8s ease-in-out infinite reverse'
     },
     orb3: {
-      position: 'absolute',
+      position: 'absolute' as const,
       top: '160px',
       left: '160px',
       width: '240px',
@@ -97,7 +95,7 @@ const LoginForm: React.FC = () => {
       animation: 'float 7s ease-in-out infinite'
     },
     loginCard: {
-      position: 'relative',
+      position: 'relative' as const,
       zIndex: 10,
       maxWidth: '440px',
       width: '100%',
@@ -110,7 +108,7 @@ const LoginForm: React.FC = () => {
       animation: 'slideUp 0.8s ease-out'
     },
     header: {
-      textAlign: 'center',
+      textAlign: 'center' as const,
       marginBottom: '40px'
     },
     iconContainer: {
@@ -139,7 +137,7 @@ const LoginForm: React.FC = () => {
     },
     form: {
       display: 'flex',
-      flexDirection: 'column',
+      flexDirection: 'column' as const,
       gap: '24px'
     },
     inputField: {
@@ -150,7 +148,7 @@ const LoginForm: React.FC = () => {
       borderRadius: '16px',
       fontSize: '18px',
       fontWeight: '600',
-      textTransform: 'none',
+      textTransform: 'none' as const,
       background: 'linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%)',
       boxShadow: '0 10px 25px rgba(139, 92, 246, 0.4)',
       transition: 'all 0.3s ease',
@@ -167,7 +165,7 @@ const LoginForm: React.FC = () => {
       gap: '12px'
     },
     additionalLinks: {
-      textAlign: 'center',
+      textAlign: 'center' as const,
       marginTop: '32px',
       animation: 'fadeIn 0.6s ease-out 0.6s both'
     },
@@ -176,7 +174,7 @@ const LoginForm: React.FC = () => {
       fontSize: '14px',
       textDecoration: 'none',
       transition: 'color 0.3s ease',
-      cursor: 'pointer',
+      cursor: 'pointer' as const,
       marginBottom: '12px',
       display: 'block'
     },
@@ -189,7 +187,7 @@ const LoginForm: React.FC = () => {
       fontWeight: '600',
       textDecoration: 'none',
       transition: 'color 0.3s ease',
-      cursor: 'pointer'
+      cursor: 'pointer' as const
     },
     errorAlert: {
       backgroundColor: 'rgba(239, 68, 68, 0.15)',
@@ -201,208 +199,8 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <div style={styles.container}>
-      {/* Animated background elements */}
-      <div style={styles.backgroundOrbs}>
-        <div style={styles.orb1}></div>
-        <div style={styles.orb2}></div>
-        <div style={styles.orb3}></div>
-      </div>
-
-      <Slide direction="up" in={true} mountOnEnter unmountOnExit timeout={800}>
-        <Paper 
-          elevation={0}
-          style={styles.loginCard}
-        >
-          {/* Header */}
-          <div style={styles.header}>
-            <div style={styles.iconContainer}>
-              <LoginIcon style={{ color: 'white', fontSize: '36px' }} />
-            </div>
-            <h2 style={styles.title}>Welcome Back</h2>
-            <p style={styles.subtitle}>Sign in to continue to your account</p>
-          </div>
-
-          {/* Form */}
-          <form onSubmit={handleSubmit} style={styles.form}>
-            {/* Email Field */}
-            <Fade in={true} timeout={1000}>
-              <div style={styles.inputField}>
-                <TextField
-                  fullWidth
-                  type="email"
-                  label="Email Address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  variant="outlined"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Email style={{ color: 'rgba(255, 255, 255, 0.7)' }} />
-                      </InputAdornment>
-                    ),
-                    style: { color: 'white' }
-                  }}
-                  InputLabelProps={{
-                    style: { color: 'rgba(255, 255, 255, 0.7)' }
-                  }}
-                  sx={{
-                    '& .MuiOutlinedInput-root': {
-                      '& fieldset': {
-                        borderColor: 'rgba(255, 255, 255, 0.3)',
-                        transition: 'all 0.3s ease'
-                      },
-                      '&:hover fieldset': {
-                        borderColor: 'rgba(255, 255, 255, 0.5)',
-                      },
-                      '&.Mui-focused fieldset': {
-                        borderColor: '#8b5cf6',
-                        borderWidth: '2px',
-                        boxShadow: '0 0 0 3px rgba(139, 92, 246, 0.1)'
-                      },
-                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                      borderRadius: '16px',
-                      transition: 'all 0.3s ease'
-                    },
-                    '& .MuiInputLabel-root.Mui-focused': {
-                      color: '#8b5cf6',
-                    },
-                  }}
-                />
-              </div>
-            </Fade>
-
-            {/* Password Field */}
-            <Fade in={true} timeout={1200}>
-              <div style={{...styles.inputField, animationDelay: '0.2s'}}>
-                <TextField
-                  fullWidth
-                  type={showPassword ? 'text' : 'password'}
-                  label="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  variant="outlined"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Lock style={{ color: 'rgba(255, 255, 255, 0.7)' }} />
-                      </InputAdornment>
-                    ),
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          onClick={togglePasswordVisibility}
-                          edge="end"
-                          style={{ color: 'rgba(255, 255, 255, 0.7)' }}
-                        >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                    style: { color: 'white' }
-                  }}
-                  InputLabelProps={{
-                    style: { color: 'rgba(255, 255, 255, 0.7)' }
-                  }}
-                  sx={{
-                    '& .MuiOutlinedInput-root': {
-                      '& fieldset': {
-                        borderColor: 'rgba(255, 255, 255, 0.3)',
-                        transition: 'all 0.3s ease'
-                      },
-                      '&:hover fieldset': {
-                        borderColor: 'rgba(255, 255, 255, 0.5)',
-                      },
-                      '&.Mui-focused fieldset': {
-                        borderColor: '#8b5cf6',
-                        borderWidth: '2px',
-                        boxShadow: '0 0 0 3px rgba(139, 92, 246, 0.1)'
-                      },
-                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                      borderRadius: '16px',
-                      transition: 'all 0.3s ease'
-                    },
-                    '& .MuiInputLabel-root.Mui-focused': {
-                      color: '#8b5cf6',
-                    },
-                  }}
-                />
-              </div>
-            </Fade>
-
-            {/* Error Alert */}
-            {error && (
-              <Fade in={true}>
-                <Alert 
-                  severity="error" 
-                  sx={styles.errorAlert}
-                >
-                  Login failed. Please check your credentials.
-                </Alert>
-              </Fade>
-            )}
-
-            {/* Submit Button */}
-            <Fade in={true} timeout={1400}>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                disabled={isLoading}
-                sx={{
-                  ...styles.submitButton,
-                  '&:hover': styles.submitButtonHover,
-                  '&:disabled': {
-                    background: 'rgba(255, 255, 255, 0.1)',
-                    color: 'rgba(255, 255, 255, 0.5)',
-                  },
-                }}
-              >
-                {isLoading ? (
-                  <div style={styles.loadingContainer}>
-                    <CircularProgress size={24} style={{ color: 'white' }} />
-                    <span>Signing in...</span>
-                  </div>
-                ) : (
-                  <div style={styles.loadingContainer}>
-                    <LoginIcon />
-                    <span>Sign In</span>
-                  </div>
-                )}
-              </Button>
-            </Fade>
-
-            {/* Additional Links */}
-            <Fade in={true} timeout={1600}>
-              <div style={styles.additionalLinks}>
-                <a 
-                  href="#" 
-                  style={styles.forgotPassword}
-                  onMouseOver={(e) => e.target.style.color = 'white'}
-                  onMouseOut={(e) => e.target.style.color = 'rgba(255, 255, 255, 0.7)'}
-                >
-                  Forgot your password?
-                </a>
-                <p style={styles.signupText}>
-                  Don't have an account?{' '}
-                  <a 
-                    href="#" 
-                    style={styles.signupLink}
-                    onMouseOver={(e) => e.target.style.color = '#c4b5fd'}
-                    onMouseOut={(e) => e.target.style.color = '#a78bfa'}
-                  >
-                    Sign up
-                  </a>
-                </p>
-              </div>
-            </Fade>
-          </form>
-        </Paper>
-      </Slide>
-
-      <style jsx>{`
+    <>
+      <style>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
           50% { transform: translateY(-20px) rotate(10deg); }
@@ -458,7 +256,209 @@ const LoginForm: React.FC = () => {
           75% { transform: translateX(8px); }
         }
       `}</style>
-    </div>
+      
+      <div style={styles.container}>
+        {/* Animated background elements */}
+        <div style={styles.backgroundOrbs}>
+          <div style={styles.orb1}></div>
+          <div style={styles.orb2}></div>
+          <div style={styles.orb3}></div>
+        </div>
+
+        <Slide direction="up" in={true} mountOnEnter unmountOnExit timeout={800}>
+          <Paper 
+            elevation={0}
+            style={styles.loginCard}
+          >
+            {/* Header */}
+            <div style={styles.header}>
+              <div style={styles.iconContainer}>
+                <LoginIcon style={{ color: 'white', fontSize: '36px' }} />
+              </div>
+              <h2 style={styles.title}>Welcome Back</h2>
+              <p style={styles.subtitle}>Sign in to continue to your account</p>
+            </div>
+
+            {/* Form */}
+            <form onSubmit={handleSubmit} style={styles.form}>
+              {/* Email Field */}
+              <Fade in={true} timeout={1000}>
+                <div style={styles.inputField}>
+                  <TextField
+                    fullWidth
+                    type="email"
+                    label="Email Address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    variant="outlined"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Email style={{ color: 'rgba(255, 255, 255, 0.7)' }} />
+                        </InputAdornment>
+                      ),
+                      style: { color: 'white' }
+                    }}
+                    InputLabelProps={{
+                      style: { color: 'rgba(255, 255, 255, 0.7)' }
+                    }}
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        '& fieldset': {
+                          borderColor: 'rgba(255, 255, 255, 0.3)',
+                          transition: 'all 0.3s ease'
+                        },
+                        '&:hover fieldset': {
+                          borderColor: 'rgba(255, 255, 255, 0.5)',
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: '#8b5cf6',
+                          borderWidth: '2px',
+                          boxShadow: '0 0 0 3px rgba(139, 92, 246, 0.1)'
+                        },
+                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                        borderRadius: '16px',
+                        transition: 'all 0.3s ease'
+                      },
+                      '& .MuiInputLabel-root.Mui-focused': {
+                        color: '#8b5cf6',
+                      },
+                    }}
+                  />
+                </div>
+              </Fade>
+
+              {/* Password Field */}
+              <Fade in={true} timeout={1200}>
+                <div style={{...styles.inputField, animationDelay: '0.2s'}}>
+                  <TextField
+                    fullWidth
+                    type={showPassword ? 'text' : 'password'}
+                    label="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    variant="outlined"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Lock style={{ color: 'rgba(255, 255, 255, 0.7)' }} />
+                        </InputAdornment>
+                      ),
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            onClick={togglePasswordVisibility}
+                            edge="end"
+                            style={{ color: 'rgba(255, 255, 255, 0.7)' }}
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                      style: { color: 'white' }
+                    }}
+                    InputLabelProps={{
+                      style: { color: 'rgba(255, 255, 255, 0.7)' }
+                    }}
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        '& fieldset': {
+                          borderColor: 'rgba(255, 255, 255, 0.3)',
+                          transition: 'all 0.3s ease'
+                        },
+                        '&:hover fieldset': {
+                          borderColor: 'rgba(255, 255, 255, 0.5)',
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: '#8b5cf6',
+                          borderWidth: '2px',
+                          boxShadow: '0 0 0 3px rgba(139, 92, 246, 0.1)'
+                        },
+                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                        borderRadius: '16px',
+                        transition: 'all 0.3s ease'
+                      },
+                      '& .MuiInputLabel-root.Mui-focused': {
+                        color: '#8b5cf6',
+                      },
+                    }}
+                  />
+                </div>
+              </Fade>
+
+              {/* Error Alert */}
+              {error && (
+                <Fade in={true}>
+                  <Alert 
+                    severity="error" 
+                    sx={styles.errorAlert}
+                  >
+                    Login failed. Please check your credentials.
+                  </Alert>
+                </Fade>
+              )}
+
+              {/* Submit Button */}
+              <Fade in={true} timeout={1400}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  disabled={isLoading}
+                  sx={{
+                    ...styles.submitButton,
+                    '&:hover': styles.submitButtonHover,
+                    '&:disabled': {
+                      background: 'rgba(255, 255, 255, 0.1)',
+                      color: 'rgba(255, 255, 255, 0.5)',
+                    },
+                  }}
+                >
+                  {isLoading ? (
+                    <div style={styles.loadingContainer}>
+                      <CircularProgress size={24} style={{ color: 'white' }} />
+                      <span>Signing in...</span>
+                    </div>
+                  ) : (
+                    <div style={styles.loadingContainer}>
+                      <LoginIcon />
+                      <span>Sign In</span>
+                    </div>
+                  )}
+                </Button>
+              </Fade>
+
+              {/* Additional Links */}
+              <Fade in={true} timeout={1600}>
+                <div style={styles.additionalLinks}>
+                  <a 
+                    href="#" 
+                    style={styles.forgotPassword}
+                    onMouseOver={(e) => (e.target as HTMLElement).style.color = 'white'}
+                    onMouseOut={(e) => (e.target as HTMLElement).style.color = 'rgba(255, 255, 255, 0.7)'}
+                  >
+                    Forgot your password?
+                  </a>
+                  <p style={styles.signupText}>
+                    Don't have an account?{' '}
+                    <a 
+                      href="#" 
+                      style={styles.signupLink}
+                      onMouseOver={(e) => (e.target as HTMLElement).style.color = '#c4b5fd'}
+                      onMouseOut={(e) => (e.target as HTMLElement).style.color = '#a78bfa'}
+                    >
+                      Sign up
+                    </a>
+                  </p>
+                </div>
+              </Fade>
+            </form>
+          </Paper>
+        </Slide>
+      </div>
+    </>
   );
 };
 

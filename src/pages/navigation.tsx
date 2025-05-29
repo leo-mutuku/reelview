@@ -1,12 +1,7 @@
 import { type Navigation } from '@toolpad/core/AppProvider';
 import SmartDisplayIcon from '@mui/icons-material/SmartDisplay';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
-import {
- 
-  BarChart as BarChartIcon,
-  Description as DescriptionIcon,
-
-} from '@mui/icons-material';
+import {Description as DescriptionIcon} from '@mui/icons-material';
 
 const NAVIGATION: Navigation = [
   { kind: 'header', title: 'Movie' },
