@@ -1,16 +1,25 @@
+import React, { Suspense, lazy } from 'react';
 import { HashRouter as Router } from 'react-router-dom';
 import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { createTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
 import { Routes, Route, useLocation } from 'react-router-dom';
 
-import SalesPage from './reports/salesPage';
-import Dashboard from "./dashboard/Dashboard"
 import { useReactRouterAdapter } from './reactRouterAdapter';
 import NAVIGATION from './navigation';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
+
+// Lazy load components
+const Dashboard = lazy(() => import("./dashboard/Dashboard"));
+const SalesPage = lazy(() => import('./reports/salesPage'));
+
+// You can also lazy load other pages when you create them
+const InventoryPage = lazy(() => import('./inventory/InventoryPage'))
+const ProcurementPage = lazy(() => import('./procurement/ProcurementPage'))
+const TrafficReportPage = lazy(() => import('./reports/ReportPage'))
 
 // Theme
 const demoTheme = createTheme({
@@ -29,7 +38,28 @@ const demoTheme = createTheme({
   },
 });
 
-// Page content
+// Loading component
+function LoadingSpinner() {
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '200px',
+        flexDirection: 'column',
+        gap: 2,
+      }}
+    >
+      <CircularProgress size={40} />
+      <Typography variant="body2" color="text.secondary">
+        Loading...
+      </Typography>
+    </Box>
+  );
+}
+
+// Page content fallback for routes that don't have dedicated components yet
 function PageContent() {
   const location = useLocation();
   return (
@@ -47,7 +77,7 @@ function PageContent() {
   );
 }
 
-// Layout Wrapper
+// Layout Wrapper with Suspense
 function LayoutWrapper() {
   const router = useReactRouterAdapter();
 
@@ -88,15 +118,16 @@ function LayoutWrapper() {
         </Box>
 
         <DashboardLayout>
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/sales" element={<PageContent />} />
-            <Route path="/inventory" element={<PageContent />} />
-            <Route path="/procurement" element={<PageContent />} />
-            <Route path="/reports/sales" element={<SalesPage />} />
-            <Route path="/reports/traffic" element={<PageContent />} />
-            <Route path="/integrations" element={<PageContent />} />
-          </Routes>
+          <Suspense fallback={<LoadingSpinner />}>
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/sales" element={<PageContent />} />
+              <Route path="/inventory" element={<InventoryPage />} />
+              <Route path="/procurement" element={<ProcurementPage />} />
+              <Route path="/reports/sales" element={<SalesPage />} />
+              <Route path="/reports/traffic" element={<TrafficReportPage />} />
+            </Routes>
+          </Suspense>
         </DashboardLayout>
       </Box>
     </AppProvider>
