@@ -3,6 +3,11 @@ import { useDispatch } from 'react-redux';
 import { useLoginMutation } from './features/api/apiSlice';
 import { setCredentials } from './features/auth/authSlice';
 import MovieFilterIcon from '@mui/icons-material/MovieFilter';
+import KeyboardTabIcon from '@mui/icons-material/KeyboardTab';
+import BadgeIcon from '@mui/icons-material/Badge';
+import HowToRegIcon from '@mui/icons-material/HowToReg';
+import ContactMailIcon from '@mui/icons-material/ContactMail';
+import LockResetIcon from '@mui/icons-material/LockReset';
 import {
   TextField,
   Button,
@@ -21,12 +26,101 @@ import {
 } from '@mui/icons-material';
 
 const LoginForm: React.FC = () => {
+   const [fullName, setFullName] = useState("")
   const [email, setEmail] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState("")
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+
+
+  // shop details
+  const [userId, setUserId] = useState("")
+  const [shopName, setShopName] = useState("")
+  const [country, setContry] = useState("")
+  const [location, setLocation] = useState("")
+  const [currency, setCurrency]=useState("")
+  const [businessType, setBusinessType] = useState("")
+  const [category, setCategory] = useState("")
+  
   const [login, { isLoading, error }] = useLoginMutation();
   const dispatch = useDispatch();
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  const [isLogin, setIsLogin] = useState(true)
+  const [isSignUp, setIsSignUp] = useState(false)
+  const [isShop, setIsShop] = useState(false)
+  const [isResetPassword, setIsResetPassword]= useState(false)
+
+
+  const handleLoginState =()=>{
+    setIsLogin(true)
+    setIsSignUp(false)
+    setIsShop(false)
+    setIsResetPassword(false)
+    setUserId("")
+    setEmail("")
+    setFullName("")
+    setLocation("")
+    setContry("")
+    setBusinessType("")
+    setCategory("")
+    setShopName("")
+    setCurrency("")
+  }
+
+  const handleSignUpState=()=>{
+      setIsLogin(false)
+    setIsSignUp(true)
+    setIsShop(false)
+    setIsResetPassword(false)
+    setUserId("")
+    setEmail("")
+    setFullName("")
+    setLocation("")
+    setContry("")
+    setBusinessType("")
+    setCategory("")
+    setShopName("")
+    setCurrency("")
+  }
+
+  const handleResetPasswordState=()=>{
+       setIsLogin(false)
+    setIsSignUp(false)
+    setIsShop(false)
+    setIsResetPassword(true)
+    setUserId("")
+    setEmail("")
+    setFullName("")
+    setLocation("")
+    setContry("")
+    setBusinessType("")
+    setCategory("")
+    setShopName("")
+    setCurrency("")
+
+  }
+
+  const handleShopState =()=>{
+       setIsLogin(false)
+    setIsSignUp(false)
+    setIsShop(true)
+    setIsResetPassword(false)
+    setUserId("")
+    setEmail("")
+    setFullName("")
+    setLocation("")
+    setContry("")
+    setBusinessType("")
+    setCategory("")
+    setShopName("")
+    setCurrency("")
+  }
+
+
+ 
+ 
+  
 
   useEffect(() => {
     const checkScreen = () => {
@@ -75,7 +169,7 @@ const LoginForm: React.FC = () => {
       >
         <div
           style={{
-            backgroundImage: `url("/images/cinema1_03.jpg")`,
+            backgroundImage: `url("/images/laptop.avif")`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             width: '100%',
@@ -101,8 +195,13 @@ const LoginForm: React.FC = () => {
               textAlign: 'center'
             }}
           >
-            Experience the <span style={{ color: '#a78bfa' }}>magic</span> of cinema
+            Run your store <span style={{ color: '#a78bfa' }}>Rule</span> your day! 
+
+            <br></br>
+            <span style={{ fontSize: '18px',
+              fontWeight: 500,}}>SwiftaPos &trade;</span>
           </div>
+         
         </div>
       </div>
 
@@ -125,6 +224,9 @@ const LoginForm: React.FC = () => {
             background: '#ffffff'
           }}
         >
+          {/* login form */}
+          { isLogin?(
+          <div>
           <div style={{ textAlign: 'center', marginBottom: '30px' }}>
             <div
               style={{
@@ -141,9 +243,8 @@ const LoginForm: React.FC = () => {
               <MovieFilterIcon style={{ color: 'white', fontSize: '32px' }} />
             </div>
             <h2 style={{ margin: 0, fontWeight: 700 }}>Welcome Back</h2>
-            <p style={{ color: '#6b7280', marginTop: '8px' }}>Sign in to continue</p>
+            <p style={{ color: '#6b7280', marginTop: '8px' }}>Login in to continue</p>
           </div>
-
           <form
             onSubmit={handleSubmit}
             style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
@@ -225,6 +326,348 @@ const LoginForm: React.FC = () => {
               )}
             </Button>
           </form>
+          </div>
+          ):""
+          }
+          {/* Sign up form */}
+           { isSignUp?(
+          <div>
+          <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+            <div
+              style={{
+                width: '64px',
+                height: '64px',
+                background: 'linear-gradient(135deg, #8b5cf6, #3b82f6)',
+                borderRadius: '50%',
+                margin: '0 auto 16px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <HowToRegIcon style={{ color: 'white', fontSize: '32px' }} />
+            </div>
+            <h2 style={{ margin: 0, fontWeight: 700 }}>Ceate Account</h2>
+            <p style={{ color: '#6b7280', marginTop: '8px' }}>One more step on track</p>
+          </div>
+          <form
+            onSubmit={handleSubmit}
+            style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
+          >
+            <TextField
+              type="fullName"
+              label="Full Name"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              required
+              variant="outlined"
+              fullWidth
+              size="small"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <BadgeIcon />
+                  </InputAdornment>
+                )
+              }}
+            />
+
+            <TextField
+              type={'emailt'}
+              label="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              variant="outlined"
+              fullWidth
+              size="small"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <ContactMailIcon />
+                  </InputAdornment>
+                )
+              
+              }}
+            />
+             <TextField
+              type={showPassword ? 'text' : 'password'}
+              label="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              variant="outlined"
+              fullWidth
+              size="small"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Lock />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowPassword(!showPassword)}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                )
+              }}
+            />
+              <TextField
+              type={showPassword ? 'text' : 'password'}
+              label="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+              variant="outlined"
+              fullWidth
+              size="small"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Lock />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowPassword(!showPassword)}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                )
+              }}
+            />
+         
+
+            {error && (
+              <Alert severity="error">
+                Login failed. Please check your credentials.
+              </Alert>
+            )}
+
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={isLoading}
+              sx={{
+                height: '48px',
+                textTransform: 'none',
+                fontWeight: 600,
+                background: 'linear-gradient(135deg, #8b5cf6, #3b82f6)',
+                '&:hover': {
+                  background: 'linear-gradient(135deg, #7c3aed, #2563eb)'
+                }
+              }}
+            >
+              {isLoading ? (
+                <>
+                  <CircularProgress size={20} sx={{ mr: 1, color: 'white' }} />
+                  Signing in...
+                </>
+              ) : (
+                <>
+                  <KeyboardTabIcon sx={{ mr: 1 }} />
+                  Next
+                </>
+              )}
+            </Button>
+          </form>
+          </div>
+          ):""
+          }
+
+          {/* shop form */}
+             { isShop?(
+          <div>
+          <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+            <div
+              style={{
+                width: '64px',
+                height: '64px',
+                background: 'linear-gradient(135deg, #8b5cf6, #3b82f6)',
+                borderRadius: '50%',
+                margin: '0 auto 16px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <MovieFilterIcon style={{ color: 'white', fontSize: '32px' }} />
+            </div>
+            <h2 style={{ margin: 0, fontWeight: 700 }}>Getting started</h2>
+            <p style={{ color: '#6b7280', marginTop: '8px' }}>Sign in to continue</p>
+          </div>
+          <form
+            onSubmit={handleSubmit}
+            style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
+          >
+            <TextField
+              type="email"
+              label="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              variant="outlined"
+              fullWidth
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Email />
+                  </InputAdornment>
+                )
+              }}
+            />
+
+            <TextField
+              type={showPassword ? 'text' : 'password'}
+              label="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              variant="outlined"
+              fullWidth
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Lock />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowPassword(!showPassword)}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                )
+              }}
+            />
+
+            {error && (
+              <Alert severity="error">
+                Login failed. Please check your credentials.
+              </Alert>
+            )}
+
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={isLoading}
+              sx={{
+                height: '48px',
+                textTransform: 'none',
+                fontWeight: 600,
+                background: 'linear-gradient(135deg, #8b5cf6, #3b82f6)',
+                '&:hover': {
+                  background: 'linear-gradient(135deg, #7c3aed, #2563eb)'
+                }
+              }}
+            >
+              {isLoading ? (
+                <>
+                  <CircularProgress size={20} sx={{ mr: 1, color: 'white' }} />
+                  Signing in...
+                </>
+              ) : (
+                <>
+                  <LoginIcon sx={{ mr: 1 }} />
+                  Sign In
+                </>
+              )}
+            </Button>
+          </form>
+          </div>
+          ):""
+          }
+
+          {/* Reset password */}
+             { isResetPassword?(
+          <div>
+          <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+            <div
+              style={{
+                width: '64px',
+                height: '64px',
+                background: 'linear-gradient(135deg, #8b5cf6, #3b82f6)',
+                borderRadius: '50%',
+                margin: '0 auto 16px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <LockResetIcon style={{ color: 'white', fontSize: '32px' }} />
+            </div>
+            <h2 style={{ margin: 0, fontWeight: 700 }}>Forgot Your Password</h2>
+            <p style={{ color: '#6b7280', marginTop: '8px' }}>Enter your email to reset</p>
+          </div>
+          <form
+            onSubmit={handleSubmit}
+            style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
+          >
+            <TextField
+              type="email"
+              label="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              variant="outlined"
+              fullWidth
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Email />
+                  </InputAdornment>
+                )
+              }}
+            />
+
+
+            {error && (
+              <Alert severity="error">
+                Login failed. Please check your credentials.
+              </Alert>
+            )}
+
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={isLoading}
+              sx={{
+                height: '48px',
+                textTransform: 'none',
+                fontWeight: 600,
+                background: 'linear-gradient(135deg, #8b5cf6, #3b82f6)',
+                '&:hover': {
+                  background: 'linear-gradient(135deg, #7c3aed, #2563eb)'
+                }
+              }}
+            >
+              {isLoading ? (
+                <>
+                  <CircularProgress size={20} sx={{ mr: 1, color: 'white' }} />
+                  We could not find associated email account...
+                </>
+              ) : (
+                <>
+                  <LoginIcon sx={{ mr: 1 }} />
+                  Reset
+                </>
+              )}
+            </Button>
+          </form>
+          </div>
+          ):""
+          }
 
           <div style={{ marginTop: '24px', textAlign: 'center' }}>
             <a
@@ -236,13 +679,13 @@ const LoginForm: React.FC = () => {
                 display: 'block',
                 marginBottom: '12px'
               }}
-            >
-              Forgot your password?
+            >{isResetPassword || isLogin?(<>Create an Account</>):""}
+             
             </a>
             <p style={{ fontSize: '14px', color: '#6b7280' }}>
-              Don’t have an account?{' '}
+              {isResetPassword?(<>Have an account?</>): isLogin?(<>Forgot Password?</>):""}
               <a href="#" style={{ color: '#8b5cf6', fontWeight: 600 }}>
-                Sign up
+              {isResetPassword?(<>{" "}Login</>):isLogin?(<>{" "}Reset</>):""}
               </a>
             </p>
           </div>
